@@ -1,0 +1,18 @@
+body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+button
+{
+    padding: 2%;
+    /* width: 25%;*/
+    margin-left: 25%;
+    background-color: rgb(51, 161, 88);
+    color: white;
+}
+.datetimepicker12{
+margin: 15%;
+/* margin-right: 10%; */
+}

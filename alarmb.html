@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="alarmb.css">
+</head>
+
+<body>
+
+    <!-- <div style="overflow:hidden;"> -->
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="datetimepicker12"></div>
+                <input type="hidden" name="date" id="my_hidden_input" value="">
+                <button type="button" id="sub">setAlarm</button>
+                <button type="button" id="cancel">Cancel</button>
+                <p id="alaram"></p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var set = document.getElementById("sub");
+        var can = document.getElementById("cancel");
+        // set.addEventListener('click',console.log("hello"));
+        $(function () {
+            set.onclick = function () {
+                console.log("hello");
+            }
+            $('.datetimepicker12').datetimepicker({
+                inline: true,
+                sideBySide: true
+            }).on('dp.change', function (event) {
+                console.log(event.date);
+                document.getElementById("my_hidden_input").value = event.date;
+                var userDate = document.getElementById("my_hidden_input").value;
+                console.log(userDate);
+                var uDate = new Date(userDate);
+                var uTime = uDate.getTime();
+
+                var dDate = new Date();
+                // var dTime;
+                var inter;
+                var dTime = dDate.getTime();
+                var aud = new Audio();
+                aud.src = "sweetalarm.mp3";
+                // console.log(
+                // window.addEventListener('DOMContentLoaded',function(){
+                // init();
+                set.onclick = function () {
+                    // var distance1;
+                    if (uTime > dTime) {
+                     inter = setInterval(function () {
+                            var uDate = new Date(userDate);
+                            // console.log(uDate);
+                            var uTime = uDate.getTime();
+                            //  console.log(uTime);
+                            // var Sec=uDate.getMilliseconds();
+
+                            var dDate = new Date();
+                            var dTime = dDate.getTime();
+                            console.log(uTime);
+                            // console.log(Sec);
+                            // console.log(Math.floor((uTime % (1000 * 60)) / (1000)));
+                            var uSec = Math.floor((uTime % (1000 * 60)) / (1000));
+                            // uTime=uTime-uSec;
+                            var distance = uTime - dTime;
+
+                            var time = Math.floor((distance / (1000 * 60 * 60 * 24)));
+                            var hour = Math.floor((distance % (1000 * 60 * 60 * 24)) / (
+                                1000 * 60 * 60));
+                            var min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            //  console.log(min);
+                            var sec = (Math.floor((distance % (1000 * 60)) / (1000)));
+                            // distance=distance-(Math.floor((uTime % (1000 * 60)) / (1000)));
+                            // var sSec=sec-uSec;
+                            //  console.log(sec);
+                            document.getElementById("alaram").innerHTML = time + "days" +
+                                hour + "hrs" + min + "min" + sec + "secs";
+
+                            if (distance < 0) {
+
+                                clearInterval(inter);
+                                document.getElementById("alaram").style.display = "none";
+                                // var aud = new Audio();
+                                // aud.src = "sweetalarm.mp3";
+                                aud.play();
+                            }
+
+
+                            //  distance1=distance;
+                        }, 1000);
+                    } else {
+                        document.getElementById("alaram").innerHTML =
+                            "Select Valid Time";
+                        clearInterval(inter);
+                        alert("Time is invalid");
+                    }
+                    // console.log(distance1);
+
+                }
+                can.onclick = function () {
+                    console.log(can);
+                    clearInterval(inter);
+                    document.getElementById("alaram").style.display = "none";
+                    // var aud = new Audio("sweetalarm.mp3");
+                    aud.src = "";
+                    aud.pause();
+                }
+                // s
+                // tim=dTime;
+                // console.log(tim);
+            });
+        });
+        // console.log(window.dTime);
+    </script>
+</body>
+
+</html>

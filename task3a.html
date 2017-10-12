@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="task3a.css">
+</head>
+
+<body>
+    <p id="timer"></p>
+    <a href="task3c.html">Alarm</a>
+    <a href="task3b.html">Timer</a>
+    <a href="task3d.html">StopWatch</a>
+    <script>
+        var countee = document.getElementById("timer");
+        var clock = setInterval(timer, 1000);
+
+        function timer() {
+            var dat = new Date();
+            countee.innerHTML = dat.toLocaleTimeString();
+        }
+    </script>
+</body>
+
+</html>

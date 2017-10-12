@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="task3d.css">
+</head>
+
+<body>
+        <a href="task3a.html">Back</a>
+    <input type="text" id="seconds">
+    <input type="text" id="mseconds">
+    <button type="button" id="start">Start</button>
+    <button type="button" id="reset">Reset</button>
+
+    <script>
+        // var sec=document.getElementById("seonds");
+        // var msec=document.getElementById("mseconds");
+        var sbuton = document.getElementById("start");
+        var rbuton = document.getElementById("reset");
+        var inter;
+        var val = 0,
+            val1 = 0;
+
+        document.getElementById("seconds").value = val + "s";
+        document.getElementById("mseconds").value = val1;
+        sbuton.addEventListener('click', sTart);
+        rbuton.addEventListener('click', stopW);
+
+        function sTart() {
+            inter = setInterval(startW, 60);
+        }
+
+        function startW() {
+            val1++;
+            document.getElementById("mseconds").value = val1;
+            if (val1 > 99) {
+                val1 = 0;
+                val++;
+                document.getElementById("mseconds").value = val1;
+                document.getElementById("seconds").value = val + "s";
+            }
+        }
+
+        function stopW() {
+            clearInterval(inter);
+            val = 0;
+            val1 = 0;
+            document.getElementById("mseconds").value = val1;
+            document.getElementById("seconds").value = val + "s"
+        }
+    </script>
+</body>
+
+</html>

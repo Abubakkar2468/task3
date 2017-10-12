@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="task3b.css">
+</head>
+
+<body>
+    <a href="task3a.html">Back</a>
+    <input type="text" id="stopwatch">
+    <input type="text" id="stopwatch1">
+    <br>
+    <button type="button" id="start" onclick="sTart();">Start</button>
+    <button type="button" id="stop" onclick="stopWatch();">Stop</button>
+    <button type="button" id="reset" onclick="reSet();">Reset</button>
+
+
+    <script>
+        var sec = 0,
+            min = 5;
+        var interval;
+        document.getElementById("stopwatch1").value = sec + "s";
+        document.getElementById("stopwatch").value = min + "m";
+        if (sec == 0) {
+        
+         
+            document.getElementById("stopwatch1").value = sec + "s";
+            document.getElementById("stopwatch").value = min + "m";
+            min--;
+            sec = 59;
+        }
+
+        function sTart() {
+            interval = setInterval(startWatch, 100);
+        }
+
+        function startWatch() {
+            sec--;
+            document.getElementById("stopwatch1").value = sec + "s";
+            document.getElementById("stopwatch").value = min + "m";
+            if (sec < 0) {
+                sec = 59;
+                min--;
+                document.getElementById("stopwatch1").value = sec + "s";
+                document.getElementById("stopwatch").value = min + "m";
+            }
+            if (min < 0) {
+                stop();
+            }
+
+
+        }
+
+        function stop() {
+            sec = 0;
+            min = 0;
+            clearInterval(interval);
+            document.getElementById("stopwatch1").value = sec + "s";
+            document.getElementById("stopwatch").value = min + "m";
+        }
+
+        function stopWatch() {
+            clearInterval(interval);
+        }
+
+        function reSet() {
+            sec = 0;
+            min = 5;
+            document.getElementById("stopwatch").value = min + "m";
+            document.getElementById("stopwatch1").value = sec + "s";
+        }
+    </script>
+</body>
+
+</html>

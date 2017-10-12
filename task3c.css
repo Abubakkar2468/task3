@@ -1,0 +1,21 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: rgb(42, 102, 126);
+}
+input{
+    margin-left: 38%;
+    margin-top: 22%;
+}
+button
+{
+    margin-left: 1%;
+}
+a{
+    text-decoration: none;
+    color: white;
+    border: 1px black solid;
+    padding: 1%;
+    margin-left: 2%;
+}

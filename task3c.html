@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="task3c.css">
+</head>
+
+<body>
+    <!-- <input type="text" id="t1"> -->
+    <a href="task3a.html">Back</a>
+    <input type="datetime-local" id="t2">
+    <!-- <br> -->
+    <button type="button" id="but">SetAlaram</button>
+    <!-- <button type="button" id="but1" onclick="stopAud();">Stop</button> -->
+    <p id="alaram"></p>
+    <script>
+        var dat = new Date();
+        // document.getElementById("t1").value = dat.getTime();
+        var aud;
+        var buton = document.getElementById("but");
+        // var buton1=document.getElementById("but1");
+        buton.addEventListener('click', check);
+        // buton1.addEventListener('click',stopAud);
+        // var audi=document.getElementById("aud");
+
+        function check() {
+            var dat1 = document.getElementById("t2").value;
+            // var d=dat1.now();
+            var dist;
+            // console.log(dat1);
+            var s = new Date(dat1);
+            // console.log(s);
+            // console.log(s.getTime());
+            var ald = s.getTime();
+            // console.log(ald);
+            var nld = dat.getTime();
+           var alarm = setInterval(sTart, 1000);
+            function sTart() {
+                var dat = new Date();
+                var ald = s.getTime();
+                var nld = dat.getTime();
+                var dis = ald - nld;
+
+                var time = Math.floor((dis / (1000 * 60 * 60 * 24)));
+                // console.log(time);
+                var hour = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var min = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+                var sec = Math.floor((dis % (1000 * 60)) / (1000));
+                document.getElementById("alaram").innerHTML = time + "days" + hour + "hrs" + min + "min" + sec +
+                    "secs";
+                dist = dis;
+                // console.log(dist);
+                if (dist < 0) {
+                    // clearInterval(alaram);
+                    // window.alert("Hello It's time ");
+                    // dist=0;
+                    aud = new Audio();
+                    aud.src="sweetalarm.mp3";
+                    aud.play();
+                    document.getElementById("alaram").style.display="none";
+                    // break block1;
+                    // aud.pause();
+                }
+
+            }
+        }
+        // console.log(buton1);
+        //     function stopAud()
+        //     {
+        //         // clearInterval(alaram);
+        //         aud=new Audio("sweetalarm.mp3");
+        //         aud.pause();
+        //         aud.currentTime=0;
+        //         // var dis = 0;
+
+        //         // var time = Math.floor((dis / (1000 * 60 * 60 * 24)));
+        //         // var hour = Math.floor((dis % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        //         // var min = Math.floor((dis % (1000 * 60 * 60)) / (1000 * 60));
+        //         // var sec = Math.floor((dis % (1000 * 60)) / (1000));
+        //         // document.getElementById("alaram").innerHTML = time + "days" + hour + "hrs" + min + "min" + sec +
+        //         //     "secs";
+        //     }
+            // console.log(dist);
+            // if (dist < 0) {
+            //     clearInterval(alaram);
+            //     // window.alert("Hello It's time ");
+            // }
+    </script>
+</body>
+
+</html>
