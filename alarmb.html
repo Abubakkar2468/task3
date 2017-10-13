@@ -16,17 +16,22 @@
 <body>
 
     <!-- <div style="overflow:hidden;"> -->
-        <a href="task3a.html">Back</a>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="datetimepicker12"></div>
-                <input type="hidden" name="date" id="my_hidden_input" value="">
-                <button type="button" id="sub">setAlarm</button>
-                <button type="button" id="cancel">Cancel</button>
-                <p id="alaram"></p>
+    <a href="task3a.html">Back</a>
+    <div id="clock">
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="datetimepicker12"></div>
+                    <input type="hidden" name="date" id="my_hidden_input" value="">
+                    <button type="button" id="sub">setAlarm</button>
+                    <button type="button" id="cancel">Cancel</button>
+
+                </div>
             </div>
         </div>
+        <canvas id="rectangle" width="300" height="300"></canvas>
+        <p id="alaram"></p>
     </div>
     <script type="text/javascript">
         var set = document.getElementById("sub");
@@ -40,10 +45,10 @@
                 inline: true,
                 sideBySide: true
             }).on('dp.change', function (event) {
-                console.log(event.date);
+                // console.log(event.date);
                 document.getElementById("my_hidden_input").value = event.date;
                 var userDate = document.getElementById("my_hidden_input").value;
-                console.log(userDate);
+                // console.log(userDate);
                 var uDate = new Date(userDate);
                 var uTime = uDate.getTime();
 
@@ -59,7 +64,7 @@
                 set.onclick = function () {
                     // var distance1;
                     if (uTime > dTime) {
-                     inter = setInterval(function () {
+                        inter = setInterval(function () {
                             var uDate = new Date(userDate);
                             // console.log(uDate);
                             var uTime = uDate.getTime();
@@ -68,12 +73,14 @@
 
                             var dDate = new Date();
                             var dTime = dDate.getTime();
-                            console.log(uTime);
+                            // console.log(uTime);
                             // console.log(Sec);
                             // console.log(Math.floor((uTime % (1000 * 60)) / (1000)));
                             var uSec = Math.floor((uTime % (1000 * 60)) / (1000));
                             // uTime=uTime-uSec;
-                            var distance = uTime - dTime;
+                            console.log(uTime);
+                            console.log((uTime-uSec));
+                            var distance = (uTime-(uSec*1000)) - dTime;
 
                             var time = Math.floor((distance / (1000 * 60 * 60 * 24)));
                             var hour = Math.floor((distance % (1000 * 60 * 60 * 24)) / (
@@ -109,7 +116,7 @@
 
                 }
                 can.onclick = function () {
-                    console.log(can);
+                    // console.log(can);
                     clearInterval(inter);
                     document.getElementById("alaram").style.display = "none";
                     // var aud = new Audio("sweetalarm.mp3");
@@ -122,6 +129,95 @@
             });
         });
         // console.log(window.dTime);
+        var canvas = document.getElementById("rectangle");
+        var context = canvas.getContext("2d");
+        var radius = canvas.width / 2;
+        context.translate(radius, radius);
+        radius = radius * 0.7;
+        context.beginPath();
+
+        context.arc(0, 0, radius, 0, 2 * Math.PI, false);
+        context.lineWidth = 15;
+        context.strokeStyle = "skyblue";
+        context.stroke();
+        var now = new Date();
+        var hrs = now.getTime();
+        var min = now.getMinutes();
+        var sec = now.getSeconds();
+
+
+
+        var inter = setInterval(function () {
+
+
+            for (num = 0; num < 13; num++) {
+                if (num > 0) {
+                    ang = num * Math.PI / 6;
+                    context.rotate(ang);
+                    context.translate(0, -radius * 0.85);
+                    context.rotate(-ang);
+                    context.fillText(num.toString(), 0, 0);
+                    context.rotate(ang);
+                    context.translate(0, radius * 0.85);
+                    context.rotate(-ang);
+                }
+                num++;
+                num++;
+            }
+
+
+            var hour, minute, second;
+            var now = new Date();
+            var hrs = now.getHours();
+
+            var min = now.getMinutes();
+            // console.log(min);
+            var sec = now.getSeconds();
+            //    console.log("09290902");
+            // context.clearRect(0,0,200,200);
+            context.clearRect(-60, -60, 130, 130);
+            hrs = hrs % 12;
+            // console.log(hrs);
+            // hrs = hrs >= 12 ? hrs - 12 : hrs;
+            // hour=0.5*(60*hrs + min);
+
+            hour = (hrs * Math.PI / 6) + (min * Math.PI / (6 * 60)) + (sec * Math.PI / (360 * 60));
+            // console.log(hour);
+            // hour=360*(hrs/12)+(360/12)*(min/60);
+
+            minute = (min * Math.PI / 30) + (sec * Math.PI / (30 * 60));
+            second = (sec * Math.PI / 30);
+            context.beginPath();
+            context.strokeStyle = "black";
+            context.moveTo(0, 0);
+            context.rotate(second);
+            context.lineTo(0, -(radius * 0.4));
+            context.lineWidth = 1;
+            context.rotate(-second);
+            context.stroke();
+            //minute
+            context.beginPath();
+            context.strokeStyle = "black";
+            context.moveTo(0, 0);
+            context.rotate(minute);
+            context.lineTo(0, -(radius * 0.3));
+            context.lineWidth = 2;
+            context.stroke();
+            context.rotate(-minute);
+
+            //hour
+            context.beginPath();
+            context.strokeStyle = "black";
+            context.moveTo(0, 0);
+            context.rotate(hour);
+            context.lineTo(0, -(radius * 0.2));
+            context.lineWidth = 3;
+            context.rotate(-hour);
+            context.stroke();
+            //  console.log(hour);
+        }, 1000);
+
+        console.log(Math.PI);
     </script>
 </body>
 
